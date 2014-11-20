@@ -15,13 +15,16 @@ public class Generate {
 		int offset = 0;
 		int lineWidth = 72;
 		int range = 94;
+		byte[] line = new byte[lineWidth + 2];
 		try {
 			for(int r = 0; r < 30; r++) {
 				for(int i = 0; i < lineWidth; i++) {
-					out.write(firstPrintable + offset + i);
+					line[i] = (byte)(firstPrintable + offset + i);
 				}
 				offset = (offset + 1) % range;
-				out.write('\r');
+				line[72] = (byte)'\r';
+				line[73] = (byte)'\n';
+				out.write(line);
 			}
 			out.flush();
 		} catch (IOException e) {
